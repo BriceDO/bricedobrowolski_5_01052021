@@ -1,129 +1,123 @@
-fetch('http://localhost:3000/api/teddies')
-.then(response => response.json())
-.then(data => {
+function afficherTousLesProduits() {
 
-    data.forEach(article => {
-        //genererHTMLArticle(article);
-        displayArticle(article);
-    });
-})
+    /* Cette fonction est appliquée sur index.html et fait appel à l'API pour afficher tous les produits */
 
-// Ancienne méthode
-function genererHTMLArticle(article) {
+    fetch('http://localhost:3000/api/teddies')
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(article => {
+            displayArticleListe(article);
+        });
+    })
+}
 
-    // Récupérer le parent principal
-    let baliseParent = document.getElementById('articles');
+function afficherLeProduit() {
+    id = recupererId();
+    chercherEtAfficherArticle(id);
+}
 
-    // Balise <article> card
-    let baliseArticle = document.createElement('article');
-    baliseArticle.className = "card my-2";
+function displayArticleProduit(article) {
 
-    // Balise <div> card-body shadow
-    let baliseCardBody = document.createElement('div');
-    baliseCardBody.className = "card-body shadow";
-
-    // Balise <div> row
-    let baliseRow = document.createElement('div');
-    baliseRow.className = "row";
-
-    // Balise <aside> col-md-3
-    let baliseColMD3 = document.createElement('aside');
-    baliseColMD3.className = "col-md-3";
-
-    // Balise <aside> col-md-3 le deuxieme
-    let baliseColMD3_ = baliseColMD3.cloneNode(true);
-
-    // Balise <img>
-    let baliseIMG = document.createElement('img');
-    baliseIMG.className = "img-fluid rounded mb-3 mb-md-0";
+    // Cette fonction inclut les élèments de l'article dans les balises concernées dans produit.html 
+    
+    // Image
+    let baliseIMG = document.querySelector('.image');
     baliseIMG.src = article.imageUrl;
 
-    // Balise <div> col-md-6
-    let baliseColMD6 = document.createElement('div');
-    baliseColMD6.className = "col-md-6";
+    // Titre
+    let baliseTitre = document.querySelector('.titre');
+    baliseTitre.textContent = article.name;
 
-    // Balise <a> Titre du produit
-    let baliseLienNom = document.createElement('a');
-    baliseLienNom.className = "mt-2 h5";
-    baliseLienNom.innerText = article.name;
+    // Description
+    let baliseDescription = document.querySelector('.description');
+    baliseDescription.textContent = article.description;
 
-    // Balise <p> Description
-    let baliseDescription = document.createElement('p');
-    baliseDescription.className = "pt-2";
-    baliseDescription.innerText = article.description;
+    // Prix
+    let balisePrix = document.querySelector('.price');
+    balisePrix.textContent = article.price;
 
-    // Balise <aside> col-md-3
+    // Couleurs
+    // Je cible la balise qui sera le parent de la liste des couleurs
+    let baliseParentCouleur = document.querySelector('.couleur');
 
-    // Balise <div> price-wrap
-    let balisePriceWrap = document.createElement('div');
-    balisePriceWrap.className = "price-wrap mt-2";
+    // Je boucle le tableau des couleurs
+    for (const element of article.colors){
 
-    // Balise <span> Prix
-    let balisePrix = document.createElement('span');
-    balisePrix.className = "price h5";
-    balisePrix.innerText = article.price;
+        // Je créé une div qui ajoute les couleurs dans le bouton "choisissez votre couleur"
+        let baliseEnfantCouleur = document.createElement('div');
+        baliseEnfantCouleur.className = "dropdown-item";
+        baliseEnfantCouleur.innerText = element;
 
-    // Balise <bouton> Acheter
-    let baliseBoutonAcheter = document.createElement('a');
-    baliseBoutonAcheter.className = "btn btn-primary";
-    baliseBoutonAcheter.innerText = "Acheter";
+        // J'ajoute les div créées au parent
+        baliseParentCouleur.appendChild(baliseEnfantCouleur);
+    }
+}
 
-    // Balise <bouton> Détails
-    let baliseBoutonDetails = document.createElement('a');
-    baliseBoutonDetails.BoutonDetails = "btn btn-light";
-    baliseBoutonDetails.BoutonDetails = "Détails";
+function displayArticleListe(article) {
 
-    // Affecter les enfants aux parents
+    /* Cette fonction inclut les élèments de l'article dans les balises concernées dans index.html 
+        en créant un template et en le clonant en dessous de la balise articles */
 
-    baliseColMD3_.appendChild(baliseIMG);
+    // 1. Récupérer le template de l'article
+    let templateArticle = document.querySelector('#template');
+    let clone = document.importNode(template.content, true);
 
-    baliseColMD6.appendChild(baliseLienNom);
-    baliseColMD6.appendChild(baliseDescription);
+    // Image
+    let baliseIMG = clone.querySelector('.image');
+    console.log(article.imageUrl);
+    baliseIMG.src = article.imageUrl;
 
-    baliseColMD3.appendChild(balisePrix);
-    baliseColMD3.appendChild(baliseBoutonAcheter);
-    baliseColMD3.appendChild(baliseBoutonDetails);
+    // Titre
+    let baliseTitre = clone.querySelector('.titre');
+    baliseTitre.textContent = article.name;
 
-    baliseRow.appendChild(baliseColMD3_);
-    baliseRow.appendChild(baliseColMD6);
-    baliseRow.appendChild(baliseColMD3);
+    // Description
+    let baliseDescription = clone.querySelector('.description');
+    baliseDescription.textContent = article.description;
 
-    baliseCardBody.appendChild(baliseRow);
-    baliseArticle.appendChild(baliseCardBody);
+    // Prix
+    let balisePrix = clone.querySelector('.price');
+    balisePrix.textContent = article.price;
 
-    // Balise principale
-    baliseParent.appendChild(baliseArticle);
+    // Le bouton .details et le titre du produit redirigent vers la page produit
+    let btnDetail = clone.querySelector('.details');
+    btnDetail.href = "produit.html?id="+article._id;
+    baliseTitre.href = "produit.html?id="+article._id;
 
-}       
+    // Injecte le clone du template dans le HTML en dessous de la balise #articles
+    let articles = document.querySelector('#articles');
+    articles.appendChild(clone);
+}
 
-// Nouvelle méthode
-function displayArticle(article) {
+function chercherEtAfficherArticle(id) {
 
-    let html = '<article class="card my-2" id="'+ article.id +'"> \
-    <div class="card-body shadow"> \
-        <div class="row"> \
-            <aside class="col-md-3"> \
-                <img src="'+ article.imageUrl +'" class="img-fluid rounded mb-3 mb-md-0"></a> \
-            </aside> \
-            <div class="col-md-6"> \
-                <a href="#" class="mt-2 h5">'+ article.name +'</a> \
-                <p class="pt-2">'+ article.description +' \
-            </div> \
-            <aside class="col-md-3"> \
-                <div class="price-wrap mb-1 "> \
-                    <span class="price h5"> '+ article.price +'€ </span> \
-                </div> \
-                <a href="#" class="btn btn-primary"> Aujouter au panier </a>  \
-                <a href="produit.html" class="btn btn-light"> Details </a> \
-                </p><br> \
-            </aside> \
-        </div> \
-    </div> \
-</article>';
+    /* Cette fonction fait appel à l'API et vérifie si l'ID
+        est la même que celle d'un des articles, si oui, retourne ses propriétés */
 
-    // Récupérer le parent principal
-    let baliseParent = document.getElementById('articles');
+    fetch('http://localhost:3000/api/teddies')
+    .then(response => response.json())
+    .then(data => {
+    data.forEach(article => {
+        if (id === article._id){
+            displayArticleProduit(article);
+        }
+    });
+    }) 
+}
 
-    baliseParent.innerHTML = baliseParent.innerHTML + html;
+function recupererId() {
 
+    /* Cette fonction récupère l'ID de l'URL, en retourne sa valeur
+       pour pouvoir l'utiliser après et afficher les propriétés de l'article */
+
+    // Récupérer la chaine des paramètres dans l'url
+    const queryString = window.location.search;
+
+    // Utiliser la classe URLSearchParams pour parser (couper) les paramètres
+    const urlParams = new URLSearchParams(queryString);
+
+    // Récupérer la valeur de la clé ID
+    id = urlParams.get('id');
+
+    return id;
 }
