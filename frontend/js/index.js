@@ -1,12 +1,3 @@
-
-
-function afficherLeProduit() {
-    id = recupererId();
-    chercherEtAfficherArticle(id);
-}
-
-
-
 function displayArticleListe(article) {
 
     /* Cette fonction inclut les élèments de l'article dans les balises concernées dans index.html 
@@ -18,7 +9,6 @@ function displayArticleListe(article) {
 
     // Image
     let baliseIMG = clone.querySelector('.image');
-    console.log(article.imageUrl);
     baliseIMG.src = article.imageUrl;
 
     // Titre
@@ -33,6 +23,12 @@ function displayArticleListe(article) {
     let balisePrix = clone.querySelector('.price');
     balisePrix.textContent = article.price;
 
+    // Bouton ajouter au panier
+    let btnAjouter = clone.querySelector('.panier');
+
+    // Au clique du bouton, lance une fonction qui va appeler la fonction ajouterPanier avec en paramètre le btn HTML concerné
+    btnAjouter.addEventListener('click', function() {ajouterPanier(btnAjouter)});
+
     // Le bouton .details et le titre du produit redirigent vers la page produit
     let btnDetail = clone.querySelector('.details');
     btnDetail.href = "produit.html?id="+article._id;
@@ -43,21 +39,17 @@ function displayArticleListe(article) {
     articles.appendChild(clone);
 }
 
+function afficherTousLesProduits() {
 
+    // Fait appel à l'API pour afficher tous les produits
 
-function recupererId() {
-
-    /* Cette fonction récupère l'ID de l'URL, en retourne sa valeur
-       pour pouvoir l'utiliser après et afficher les propriétés de l'article */
-
-    // Récupérer la chaine des paramètres dans l'url
-    const queryString = window.location.search;
-
-    // Utiliser la classe URLSearchParams pour parser (couper) les paramètres
-    const urlParams = new URLSearchParams(queryString);
-
-    // Récupérer la valeur de la clé ID
-    id = urlParams.get('id');
-
-    return id;
+    getData(ENDPOINT)
+        .then(data => {
+            data.forEach(article => {
+                displayArticleListe(article);
+            });
+        })
 }
+
+afficherTousLesProduits();
+rafraichirAlertePanier();

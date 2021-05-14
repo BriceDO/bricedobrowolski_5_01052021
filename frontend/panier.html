@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceuil - Orinico</title>
+    <title>Panier - Orinico</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -19,7 +19,8 @@
                 <div class="row">
                     <nav class="col navbar navbar-expand-lg navbar-light">
                         <a class="navbar-brand col-9" href="index.html">
-                            <img src="/backend/logo/logo_carre-removebg.png" width="150" height="auto" alt="Orinico Logo" />
+                            <img src="/backend/logo/logo_carre-removebg.png" width="150" height="auto"
+                                alt="Orinico Logo" />
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
                             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,11 +45,76 @@
         </div>
     </header>
 
-    <!-- PRODUIT -->
+    <!-- PANIER -->
 
-    
     <div class="container">
-        
+        <div class="row" id="articles">
+        </div>
+
+        <!-- TEMPLATE -->
+        <template id="template">
+            <div class="card shadow col-md-12 mt-3 text-center article">
+                <div class="row">
+                    <div class="col">
+                        <img class="img-fluid image align-self-center text-center" src="" width="150px"></img>
+                    </div>
+                    <div class="col titre align-self-center text-center ">
+                    </div>
+                    <div class="col price align-self-center text-center prix">
+                    </div>
+                    <div class="col text-right align-self-center text-center">
+                        <a style="cursor:pointer;" class="btn btn-primary retirer ">Retirer</a>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <!-- CLEAR -->
+        <div class="col-12 text-right mt-3">
+            <button class="btn btn-warning" id="clear-cart">Tout retirer</button>
+        </div>
+        <!-- RECAP COMMANDE -->
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                <h4>Votre commande</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                Votre panier contient X produit(s) pour un montant total de X.
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                <!-- BLOCK FORMULAIRE -->
+                <h4>Adresse de livraison</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                <label class="label">Votre nom :</label>
+                <input class="form-control" type="text" name="nom" value="" id="nom" placeholder="Ex : Dupont" required>
+                <br>
+                <label class="label">Votre prénom :</label>
+                <input class="form-control" type="text" name="prenom" value="" id="prenom" placeholder="Ex : Jean"
+                    required>
+                <br>
+                <label class="label">Votre code postal :</label>
+                <input class="form-control" type="text" name="cp" value="" id="cp" placeholder="Ex : 75100"
+                    pattern="[0-9]{,5}" required>
+                <br>
+                <label class="label">Votre ville :</label>
+                <input class="form-control" type="text" name="ville" value="" id="ville" placeholder="Ex : Paris"
+                    required>
+                <br>
+                <label class="label">Votre mail :</label>
+                <input class="form-control" type="email" name="email" value="" id="email"
+                    placeholder="Ex : mail@adresse.com" required>
+                <br>
+                <div class="text-right"><button type="submit" class="btn btn-success" id="commander">Valider et
+                        Payer</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- FOOTER -->
@@ -80,8 +146,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    <script src="script.js"></script>
-
+    <script src="./js/global.js"></script>
+    <script src="./js/panier.js"></script>
 </body>
 
 </html>
