@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panier - Orinico</title>
-
+    <link rel="stylesheet" href="/frontend/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
@@ -18,7 +18,7 @@
             <div class="container">
                 <div class="row">
                     <nav class="col navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand col-9" href="index.html">
+                        <a class="navbar-brand col-9" href="/frontend/index.html">
                             <img src="/backend/logo/logo_carre-removebg.png" width="150" height="auto"
                                 alt="Orinico Logo" />
                         </a>
@@ -74,45 +74,58 @@
         </div>
         <!-- RECAP COMMANDE -->
         <div class="row">
-            <div class="col-md-12 mt-3">
+            <div class="col-md-12">
                 <h4>Votre commande</h4>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 mt-3">
+            <div class="col-md-12 mt-3 recap">
                 Votre panier contient X produit(s) pour un montant total de X.
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 mt-3">
                 <!-- BLOCK FORMULAIRE -->
-                <h4>Adresse de livraison</h4>
+                <h4>Vos coordonnées</h4>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 mt-3">
-                <label class="label">Votre nom :</label>
-                <input class="form-control" type="text" name="nom" value="" id="nom" placeholder="Ex : Dupont" required>
-                <br>
-                <label class="label">Votre prénom :</label>
-                <input class="form-control" type="text" name="prenom" value="" id="prenom" placeholder="Ex : Jean"
-                    required>
-                <br>
-                <label class="label">Votre code postal :</label>
-                <input class="form-control" type="text" name="cp" value="" id="cp" placeholder="Ex : 75100"
-                    pattern="[0-9]{,5}" required>
-                <br>
-                <label class="label">Votre ville :</label>
-                <input class="form-control" type="text" name="ville" value="" id="ville" placeholder="Ex : Paris"
-                    required>
-                <br>
-                <label class="label">Votre mail :</label>
-                <input class="form-control" type="email" name="email" value="" id="email"
-                    placeholder="Ex : mail@adresse.com" required>
-                <br>
-                <div class="text-right"><button type="submit" class="btn btn-success" id="commander">Valider et
-                        Payer</button>
-                </div>
+            <div class="col">
+                <form class="row g-3" id="formulaireCommande">
+                    <div class="col-md-6">
+                        <label class="form-label mb-2 mt-2">Nom</label>
+                        <input class="form-control" type="text" name="nom" id="lastName" placeholder="Ex : Dupont"
+                            required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label mb-2 mt-2">Prénom</label>
+                        <input class="form-control" type="text" name="prenom" id="firstName" placeholder="Ex : Jean"
+                            required>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label mb-2 mt-3">Adresse email</label>
+                        <input class="form-control" type="email" name="email" id="email"
+                            placeholder="Ex : mail@adresse.com" required>
+                    </div>
+                    <div class="col-12">
+                        <label for="inputAddress" class="form-label mb-2 mt-3">Adresse postale</label>
+                        <input type="text" class="form-control" name="adresse" id="address" placeholder="Ex : 10 rue Victor Hugo" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label mb-2 mt-3">Ville</label>
+                        <input class="form-control" type="text" name="ville" id="city" placeholder="Ex : Paris"
+                            required>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="inputZip" class="form-label mb-2 mt-3">Code Postal</label>
+                      <input type="text" class="form-control" name="codePostal" id="zipcode" pattern="[0-9]{0,5}" placeholder="Ex : 75010" required>
+                    </div>
+                    <div class="col-12 text-right mt-4">
+                       <p class="text-left font-italic">Tous les champs sont obligatoires</p>
+                      <button type="submit" class="btn btn-success ">Valider et Payer</button>
+                    </div>
+                  </form>
+                  <div id="result"></div>
             </div>
         </div>
     </div>

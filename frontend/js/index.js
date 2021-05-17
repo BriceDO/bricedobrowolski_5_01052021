@@ -27,7 +27,7 @@ function displayArticleListe(article) {
     let btnAjouter = clone.querySelector('.panier');
 
     // Au clique du bouton, lance une fonction qui va appeler la fonction ajouterPanier avec en paramètre le btn HTML concerné
-    btnAjouter.addEventListener('click', function() {ajouterPanier(btnAjouter)});
+    btnAjouter.addEventListener('click', function() {ajouterPanier(btnAjouter, article._id)});
 
     // Le bouton .details et le titre du produit redirigent vers la page produit
     let btnDetail = clone.querySelector('.details');

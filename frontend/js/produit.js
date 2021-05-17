@@ -35,7 +35,6 @@ function displayArticleProduit(article) {
         // J'ajoute les div créées au parent
         baliseSelectCouleurs.appendChild(optionCouleur);
     }
-
 }
 
 function recupererId() {
@@ -43,13 +42,13 @@ function recupererId() {
     /* Cette fonction récupère l'ID de l'URL, en retourne sa valeur
        pour pouvoir l'utiliser après et afficher les propriétés de l'article */
 
-    // Récupérer la chaine des paramètres dans l'url
+    // Récupère la chaine des paramètres dans l'url
     const queryString = window.location.search;
 
-    // Utiliser la classe URLSearchParams pour parser (couper) les paramètres
+    // Utilise la classe URLSearchParams pour parser (couper) les paramètres
     const urlParams = new URLSearchParams(queryString);
 
-    // Récupérer la valeur de la clé ID
+    // Récupère la valeur de la clé ID
     id = urlParams.get('id');
 
     return id;

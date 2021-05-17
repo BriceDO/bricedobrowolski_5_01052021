@@ -23,13 +23,13 @@ getData(ENDPOINT)
                 let balisePrix = clone.querySelector('.prix');
                 balisePrix.textContent = `Prix : ${produit.price}`;
 
-                 //Bouton retirer au panier
+                 // Bouton retirer au panier
                  let btnRetirer = clone.querySelector('.retirer');
 
                  /* Au clique du bouton retirer, on execute la fonction retirerPanier 
-                    avec en paramètrel'ID du produit */
-                 // Le paramètre est baliseArticle.id pour fonctionner.
-                 // Avec la variable ID, cela ne fonctionne pas.   
+                    avec en paramètrel'ID du produit
+                    Le paramètre doit avoir baliseArticle.id pour fonctionner.  */
+ 
                  btnRetirer.addEventListener("click", () => {
                        retirerPanier(baliseArticle.id);
                  });
@@ -41,34 +41,88 @@ getData(ENDPOINT)
     }
 })
 
-// Retire un seul produit du panier visuellement et du le local Storage
+// Retire tous les produits
 function retirerPanier(id) {
+
+    // Retire visuellement
     document.getElementById(id).remove();
-    console.log("effacer le id " + id + " du tableau suivant :");
-    console.log(tabID);
 
-    tabID.splice(id);
+    // retrouver l'index du produit concerné dans le tableau
+    index = tabID.indexOf(id);
 
-    console.log("**********");
+    //supprimer l'id du tableau
+    tabID.splice(index,1);
 
-    console.log("Voici le tableau à jour : ");
-    console.log(tabID);
-
+    //met à jour le storage avec le tableau à jour
+    localStorage.setItem("tabID", tabID);
 }
 
- // Retire tous les produits du panier visuellement et du le local storage
+// Retire un produit
 
  let btnToutRetirer = document.getElementById("clear-cart").addEventListener("click", () => {
+     // Retirer du local Storage
     localStorage.removeItem('tabID');
+
+     // Retirer visuellement
     document.querySelector('#articles').innerHTML = "";
     document.getElementById("clear-cart").remove();
   })
 
-//   // Formulaire
 
-//   let formNom = document.getElementById('nom');
-//   formNom.addEventListener('input', function (e) {
-//       let value = e.target.value;
-      
-//   })
+// -------- RECAP DE LA COMMANDE ----------- //
+
+// function recapCommande() {
+//     let recap = document.querySelector('.recap');
+
+//     if (nbProduitsPanier == 0){
+//         recap.innerHTML = 'Vous n\'avez pas de produit dans votre panier';
+//     } else {
+//         recap.innerHTML = `Vous avez ${nbProduitsPanier} produit(s) dans votre panier`;
+//     }
+// }
+
+// recapCommande();
+
+// -------- ENVOI DU FORMULAIRE AU SERVEUR ----------- //
+
+function envoyer(e) {
+
+    e.preventDefault();
+
+    fetch(ORDERPOINT,{
+        method: "POST",
+        headers: {
+            'Accept': 'application/json', 
+            'Content-Type': 'application/json' 
+        },
+            body: JSON.stringify({
+                contact : {
+                    firstName: document.getElementById('firstName').value,
+                    lastName : document.getElementById('lastName').value,
+                    address : document.getElementById('address').value,
+                    city : document.getElementById('city').value,
+                    email : document.getElementById('email').value
+                },
+                products : tabID
+                })
+    })
+    .then(function(res){
+        if (res.ok) {
+            return res.json();
+        }
+    })
+    .then(function(value){
+        console.log(value);
+        /*
+        document.getElementById("result")
+        .innerText = value.postData.text;
+        */
+    });
+}
+
+document
+  .getElementById("formulaireCommande")
+  .addEventListener("submit", envoyer);
+
+
 
