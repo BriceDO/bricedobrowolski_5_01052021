@@ -13,30 +13,30 @@ async function getData(url) {
         console.error(error);
     }
 }
-
     /* Relié à la fonction displayArticleListe de index.html
         Change l'innerText ainsi que la couleur du bouton et 
         Incrémente ou décrémente lorsque "ajouter/retirer au panier" est cliqué */
 
 function ajouterPanier(element, recupererID) {
 
-    let tabID = localStorage.getItem('tabID').split(',');
-
     if (element.innerText == "Retirer du panier") {
         element.innerText = "Ajouter au panier";
         element.classList = 'btn btn btn-primary text-white';
         nbProduitsPanier -= 1;
 
+        /* ------------- Enleve le produit du local storage --------- */
+
+        let tabID = JSON.parse(localStorage.getItem('tabID'));
         console.log("#enlever le " + recupererID + " dans le storage");
 
-        // retrouver l'index du produit concerné dans le tableau
+        // Retrouver l'index du produit concerné dans le tableau
         index = tabID.indexOf(recupererID);
 
-        //supprimer l'id du tableau
-        tabID.splice(recupererID, 1);
+        // Supprimer l'id du tableau
+        tabID.splice(index, 1);
 
-        //met à jour le storage avec le tableau à jour
-        localStorage.setItem("tabID", recupererID);
+        // Mettre à jour le storage avec un nouveau tableau
+        localStorage.setItem("tabID", JSON.stringify(tabID));
 
         console.log(tabID);
 
@@ -45,14 +45,28 @@ function ajouterPanier(element, recupererID) {
         element.classList = 'btn btn-success text-white';
         nbProduitsPanier += 1;
 
+        /* ------------- Ajoute le produit au local storage --------- */
 
-      //  console.log("#ajout de " + recupererID + " dans le storage");
+        //let tabID = localStorage.getItem('tabID').split(',');
+
+        // Si tabID existe pas dans le local Storage, on initialise avec un tableau vide
+        // Si il existe, on récupère sa valeur
+        let tabID = retournerTabID();
+
+        console.log(tabID);
+        console.log("#ajout de " + recupererID + " dans le storage");
+
+        // Ajoute l'id au tableau
+        tabID.push(recupererID);
+
+        // Mettre à jour le storage avec un nouveau tableau
+        localStorage.setItem('tabID', JSON.stringify(tabID));
+        console.log(tabID);
     }
 
 
     rafraichirAlertePanier();
 }
-
     /* Change l'alerte lorsque 1 produit ou + sont sélectionnés */
 
 function rafraichirAlertePanier() {
@@ -66,7 +80,7 @@ function rafraichirAlertePanier() {
 }
 
     /* Determine s'il y a un produit dans le panier et
-    retourne la longueur du tableau (soit le nombre d'ID/produit)  */
+    retourne la longueur du tableau grâce à l'ID (soit le nombre de produit)  */
 
 function retournerNbProduitsPanier() {
     let nbProduitPanier = 0;
@@ -77,6 +91,6 @@ function retournerNbProduitsPanier() {
     return nbProduitPanier;
 }
 
-    // Exemple pour la page panier seulement
-    // localStorage.setItem('tabID', ['5be9c8541c9d440000665243', '5beaa8bf1c9d440000a57d94']);
-
+function retournerTabID() {
+    return localStorage.getItem('tabID') != null  ? JSON.parse(localStorage.getItem('tabID')) : [];
+}

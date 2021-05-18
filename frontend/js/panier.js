@@ -1,5 +1,5 @@
 // Convertir la chaîne en tableau du local storage
-let tabID = localStorage.getItem('tabID').split(',');
+let tabID = retournerTabID();
 
 getData(ENDPOINT)
 .then(data => {
@@ -47,13 +47,13 @@ function retirerPanier(id) {
     // Retire visuellement
     document.getElementById(id).remove();
 
-    // retrouver l'index du produit concerné dans le tableau
+    // Retrouver l'index du produit concerné dans le tableau
     index = tabID.indexOf(id);
 
-    //supprimer l'id du tableau
+    // Supprimer l'id du tableau
     tabID.splice(index,1);
 
-    //met à jour le storage avec le tableau à jour
+    // Met à jour le storage avec le tableau à jour
     localStorage.setItem("tabID", tabID);
 }
 
@@ -86,9 +86,7 @@ function retirerPanier(id) {
 // -------- ENVOI DU FORMULAIRE AU SERVEUR ----------- //
 
 function envoyer(e) {
-
     e.preventDefault();
-
     fetch(ORDERPOINT,{
         method: "POST",
         headers: {
@@ -113,16 +111,17 @@ function envoyer(e) {
     })
     .then(function(value){
         console.log(value);
-        /*
-        document.getElementById("result")
-        .innerText = value.postData.text;
-        */
+
+        // le btnValider envoi vers la page confirmation.html
+        let lienValider = document.querySelector('.lienValider');
+        console.log(value.orderId);
+        lienValider.href = "confirmation.html?="+value.order_Id;
+
     });
 }
 
-document
-  .getElementById("formulaireCommande")
-  .addEventListener("submit", envoyer);
-
+// Au clique du btn valider, envoie les informations du formulaire ainsi que les ID des produits sélectionnés
+let btnValider = document.getElementById("formulaireCommande");
+btnValider.addEventListener("submit", envoyer);
 
 

@@ -91,7 +91,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <form class="row g-3" id="formulaireCommande">
+                <form class="row g-3" id="formulaireCommande" action="confirmation.html"  >
                     <div class="col-md-6">
                         <label class="form-label mb-2 mt-2">Nom</label>
                         <input class="form-control" type="text" name="nom" id="lastName" placeholder="Ex : Dupont"
@@ -121,8 +121,7 @@
                       <input type="text" class="form-control" name="codePostal" id="zipcode" pattern="[0-9]{0,5}" placeholder="Ex : 75010" required>
                     </div>
                     <div class="col-12 text-right mt-4">
-                       <p class="text-left font-italic">Tous les champs sont obligatoires</p>
-                      <button type="submit" class="btn btn-success ">Valider et Payer</button>
+                    <a class="lienValider" href=""><button type="submit" class="btn btn-success ">Valider et Payer</button></a>
                     </div>
                   </form>
                   <div id="result"></div>
