@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panier - Orinico</title>
-    <link rel="stylesheet" href="/frontend/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
@@ -60,10 +59,10 @@
                     </div>
                     <div class="col titre align-self-center text-center ">
                     </div>
-                    <div class="col price align-self-center text-center prix">
+                    <div class="col prix align-self-center text-center">
                     </div>
                     <div class="col text-right align-self-center text-center">
-                        <a style="cursor:pointer;" class="btn btn-primary retirer ">Retirer</a>
+                        <a style="cursor:pointer;" class="btn btn-primary text-white retirer ">Retirer</a>
                     </div>
                 </div>
             </div>
@@ -80,7 +79,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 mt-3 recap">
-                Votre panier contient X produit(s) pour un montant total de X.
+                
             </div>
         </div>
         <div class="row">
@@ -91,7 +90,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <form class="row g-3" id="formulaireCommande" action="confirmation.html"  >
+                <form class="row g-3" id="formulaireCommande" action="/frontend/confirmation.html"  >
                     <div class="col-md-6">
                         <label class="form-label mb-2 mt-2">Nom</label>
                         <input class="form-control" type="text" name="nom" id="lastName" placeholder="Ex : Dupont"
@@ -121,10 +120,9 @@
                       <input type="text" class="form-control" name="codePostal" id="zipcode" pattern="[0-9]{0,5}" placeholder="Ex : 75010" required>
                     </div>
                     <div class="col-12 text-right mt-4">
-                    <a class="lienValider" href=""><button type="submit" class="btn btn-success ">Valider et Payer</button></a>
+                    <a class="lienValider" href=""><button type="submit" class="btn btn-success">Valider et Payer</button></a>
                     </div>
                   </form>
-                  <div id="result"></div>
             </div>
         </div>
     </div>

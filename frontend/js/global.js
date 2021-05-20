@@ -1,9 +1,11 @@
+// Récupère les produits
 const ENDPOINT = 'http://localhost:3000/api/teddies/';
+
+// Pour récupérer l'ID de la commande
 const ORDERPOINT = 'http://localhost:3000/api/teddies/order';
 let nbProduitsPanier = 0;
 
-    // Récupère l'API
-
+// Récupère l'API
 async function getData(url) {
     try {
         let response = await fetch(url);
@@ -13,7 +15,7 @@ async function getData(url) {
         console.error(error);
     }
 }
-    /* Relié à la fonction displayArticleListe de index.html
+    /*  Relié à la fonction displayArticleListe de index.html
         Change l'innerText ainsi que la couleur du bouton et 
         Incrémente ou décrémente lorsque "ajouter/retirer au panier" est cliqué */
 
@@ -27,8 +29,7 @@ function ajouterPanier(element, recupererID) {
         /* ------------- Enleve le produit du local storage --------- */
 
         let tabID = JSON.parse(localStorage.getItem('tabID'));
-        console.log("#enlever le " + recupererID + " dans le storage");
-
+        
         // Retrouver l'index du produit concerné dans le tableau
         index = tabID.indexOf(recupererID);
 
@@ -38,8 +39,6 @@ function ajouterPanier(element, recupererID) {
         // Mettre à jour le storage avec un nouveau tableau
         localStorage.setItem("tabID", JSON.stringify(tabID));
 
-        console.log(tabID);
-
     } else {
         element.innerText = "Retirer du panier";
         element.classList = 'btn btn-success text-white';
@@ -47,28 +46,21 @@ function ajouterPanier(element, recupererID) {
 
         /* ------------- Ajoute le produit au local storage --------- */
 
-        //let tabID = localStorage.getItem('tabID').split(',');
-
         // Si tabID existe pas dans le local Storage, on initialise avec un tableau vide
         // Si il existe, on récupère sa valeur
         let tabID = retournerTabID();
-
-        console.log(tabID);
-        console.log("#ajout de " + recupererID + " dans le storage");
 
         // Ajoute l'id au tableau
         tabID.push(recupererID);
 
         // Mettre à jour le storage avec un nouveau tableau
         localStorage.setItem('tabID', JSON.stringify(tabID));
-        console.log(tabID);
     }
-
 
     rafraichirAlertePanier();
 }
-    /* Change l'alerte lorsque 1 produit ou + sont sélectionnés */
 
+// Change l'alerte lorsque 1 produit ou + sont sélectionnés
 function rafraichirAlertePanier() {
     let alertePanier = document.querySelector('.alerte-panier');
 
@@ -79,8 +71,7 @@ function rafraichirAlertePanier() {
     }
 }
 
-    /* Determine s'il y a un produit dans le panier et
-    retourne la longueur du tableau grâce à l'ID (soit le nombre de produit)  */
+// Determine s'il y a un produit dans le panier et retourne la longueur du tableau grâce à l'ID (soit le nombre de produit)
 
 function retournerNbProduitsPanier() {
     let nbProduitPanier = 0;

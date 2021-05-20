@@ -1,8 +1,9 @@
-// Convertir la chaîne en tableau du local storage
+// Convertir la chaîne du local storage en tableau 
 let tabID = retournerTabID();
 
 getData(ENDPOINT)
 .then(data => {
+    let montantTotal = 0;
     for(id of tabID) {
         for(produit of data) {
             if (id == produit._id){
@@ -36,6 +37,23 @@ getData(ENDPOINT)
 
                 let articles = document.querySelector('#articles');
                 articles.appendChild(clone);
+
+                // -------- RECAP DE LA COMMANDE ----------- //
+
+                let baliseRecap = document.querySelector('.recap');
+
+                
+                 if (tabID.length > 0){
+                   montantAjoute = produit.price;
+                    montantTotal += montantAjoute; 
+                    console.log(montantTotal);
+                 }
+            
+                 if (tabID.length == 0) {
+                       baliseRecap.innerHTML = 'Vous n\'avez pas de produit dans votre panier.';
+                 } else {
+                     baliseRecap.innerHTML = `Votre commande contient ${tabID.length} produit(s) pour un montant total de ${montantTotal}.`;
+                  }
             }
         }
     }
@@ -50,6 +68,9 @@ function retirerPanier(id) {
     // Retrouver l'index du produit concerné dans le tableau
     index = tabID.indexOf(id);
 
+    // Supprimer la ligne "récapitulatif de commande"
+    
+
     // Supprimer l'id du tableau
     tabID.splice(index,1);
 
@@ -57,9 +78,9 @@ function retirerPanier(id) {
     localStorage.setItem("tabID", tabID);
 }
 
-// Retire un produit
-
+// Retirer un produit
  let btnToutRetirer = document.getElementById("clear-cart").addEventListener("click", () => {
+
      // Retirer du local Storage
     localStorage.removeItem('tabID');
 
@@ -69,59 +90,10 @@ function retirerPanier(id) {
   })
 
 
-// -------- RECAP DE LA COMMANDE ----------- //
 
-// function recapCommande() {
-//     let recap = document.querySelector('.recap');
-
-//     if (nbProduitsPanier == 0){
-//         recap.innerHTML = 'Vous n\'avez pas de produit dans votre panier';
-//     } else {
-//         recap.innerHTML = `Vous avez ${nbProduitsPanier} produit(s) dans votre panier`;
-//     }
-// }
-
-// recapCommande();
-
-// -------- ENVOI DU FORMULAIRE AU SERVEUR ----------- //
-
-function envoyer(e) {
-    e.preventDefault();
-    fetch(ORDERPOINT,{
-        method: "POST",
-        headers: {
-            'Accept': 'application/json', 
-            'Content-Type': 'application/json' 
-        },
-            body: JSON.stringify({
-                contact : {
-                    firstName: document.getElementById('firstName').value,
-                    lastName : document.getElementById('lastName').value,
-                    address : document.getElementById('address').value,
-                    city : document.getElementById('city').value,
-                    email : document.getElementById('email').value
-                },
-                products : tabID
-                })
-    })
-    .then(function(res){
-        if (res.ok) {
-            return res.json();
-        }
-    })
-    .then(function(value){
-        console.log(value);
-
-        // le btnValider envoi vers la page confirmation.html
-        let lienValider = document.querySelector('.lienValider');
-        console.log(value.orderId);
-        lienValider.href = "confirmation.html?="+value.order_Id;
-
-    });
-}
 
 // Au clique du btn valider, envoie les informations du formulaire ainsi que les ID des produits sélectionnés
 let btnValider = document.getElementById("formulaireCommande");
-btnValider.addEventListener("submit", envoyer);
+// btnValider.addEventListener("submit", envoyer);
 
 

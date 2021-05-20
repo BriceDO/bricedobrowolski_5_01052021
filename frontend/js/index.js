@@ -35,17 +35,12 @@ function displayArticleListe(article) {
     }
 
     // Au clique du bouton, lance une fonction qui va appeler la fonction ajouterPanier avec en paramètre le btn HTML concerné
-
     btnAjouter.addEventListener('click', function() {ajouterPanier(btnAjouter, article._id)});
-
-    console.log(tabID);
-    console.log(article._id);
 
     // Le bouton .details et le titre du produit redirigent vers la page produit
     let btnDetail = clone.querySelector('.details');
     btnDetail.href = "produit.html?id="+article._id;
     baliseTitre.href = "produit.html?id="+article._id;
-
 
     // Injecte le clone du template dans le HTML en dessous de la balise #articles
     let articles = document.querySelector('#articles');
@@ -55,7 +50,6 @@ function displayArticleListe(article) {
 function afficherTousLesProduits() {
 
     // Fait appel à l'API pour afficher tous les produits
-
     getData(ENDPOINT)
         .then(data => {
             data.forEach(article => {
