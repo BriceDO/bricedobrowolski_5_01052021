@@ -23,7 +23,7 @@ function displayArticleProduit(article) {
 
     // Btn Ajouter
     let btnAjouter = document.querySelector('.panier');
-    btnAjouter.addEventListener('click', function() {ajouterPanier(btnAjouter)});
+    btnAjouter.addEventListener('click', function() {ajouterPanier(btnAjouter, id)});
 
     // Je boucle le tableau des couleurs
     for (const element of article.colors){
@@ -37,7 +37,7 @@ function displayArticleProduit(article) {
     }
 }
 
-function recupererId() {
+function recupererIDUrl() {
 
     /* Cette fonction récupère l'ID de l'URL, en retourne sa valeur
        pour pouvoir l'utiliser après et afficher les propriétés de l'article */
@@ -55,7 +55,7 @@ function recupererId() {
 }
 
 function afficherLeProduit() {
-    id = recupererId();
+    id = recupererIDUrl();
     let url = ENDPOINT + id;
     getData(url)
         .then(data => {

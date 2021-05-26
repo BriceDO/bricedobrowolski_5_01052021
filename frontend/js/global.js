@@ -1,7 +1,7 @@
 // Récupère les produits
 const ENDPOINT = 'http://localhost:3000/api/teddies/';
 
-// Pour récupérer l'ID de la commande
+// Récupére l'ID de la commande
 const ORDERPOINT = 'http://localhost:3000/api/teddies/order';
 let nbProduitsPanier = 0;
 
@@ -63,16 +63,17 @@ function ajouterPanier(element, recupererID) {
 // Change l'alerte lorsque 1 produit ou + sont sélectionnés
 function rafraichirAlertePanier() {
     let alertePanier = document.querySelector('.alerte-panier');
+    let tabID = retournerTabID();
 
-    if (nbProduitsPanier == 0){
+    if (tabID.length == 0){
         alertePanier.innerHTML = 'Vous n\'avez pas de produit dans votre <a href="/frontend/panier.html">panier<a>';
     } else {
-        alertePanier.innerHTML = `Vous avez ${nbProduitsPanier} produit(s) dans votre <a href="/frontend/panier.html">panier<a>`;
+        alertePanier.innerHTML = `Vous avez ${tabID.length} produit(s) dans votre <a href="/frontend/panier.html">panier<a>`;
     }
 }
 
 // Determine s'il y a un produit dans le panier et retourne la longueur du tableau grâce à l'ID (soit le nombre de produit)
-
+//inutilisé
 function retournerNbProduitsPanier() {
     let nbProduitPanier = 0;
     if (localStorage.getItem('tabID') != null){
@@ -81,6 +82,9 @@ function retournerNbProduitsPanier() {
     }
     return nbProduitPanier;
 }
+
+// Si le tabID est différent de null, alors on récupère un tableau d'ID.
+// Sinon, on récupère un tableau vide.
 
 function retournerTabID() {
     return localStorage.getItem('tabID') != null  ? JSON.parse(localStorage.getItem('tabID')) : [];

@@ -48,4 +48,8 @@ function envoyer(nom, prenom, email, adresse, ville) {
         }
         document.querySelector('.montantTotal').innerText = `Le montant total de votre commande est de ${montantTotal}.`;
     });
+
 }
+
+// Une fois la commande passée, le local storage est vidé
+localStorage.removeItem('tabID');

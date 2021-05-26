@@ -1,7 +1,7 @@
-/* input.form-control:valid {
+ input.form-control:valid {
     border:3px solid #0a0;
 }
 
   input.form-control:invalid {
-    border:3px solid grey;
-}  */
+    border:1px solid grey;
+} 

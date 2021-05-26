@@ -1,8 +1,13 @@
-// Convertir la chaîne du local storage en tableau 
-let tabID = retournerTabID();
+rafraichirPage();
 
-getData(ENDPOINT)
-.then(data => {
+// Rafraichit le panier et le recap de la commande
+function rafraichirPage() {
+
+    document.querySelector('#articles').innerHTML = "";
+    let tabID = retournerTabID();
+
+    getData(ENDPOINT)
+    .then(data => {
     let montantTotal = 0;
     for(id of tabID) {
         for(produit of data) {
@@ -39,61 +44,52 @@ getData(ENDPOINT)
                 articles.appendChild(clone);
 
                 // -------- RECAP DE LA COMMANDE ----------- //
-
-                let baliseRecap = document.querySelector('.recap');
-
-                
                  if (tabID.length > 0){
-                   montantAjoute = produit.price;
+                    montantAjoute = produit.price;
                     montantTotal += montantAjoute; 
-                    console.log(montantTotal);
                  }
-            
-                 if (tabID.length == 0) {
-                       baliseRecap.innerHTML = 'Vous n\'avez pas de produit dans votre panier.';
-                 } else {
-                     baliseRecap.innerHTML = `Votre commande contient ${tabID.length} produit(s) pour un montant total de ${montantTotal}.`;
-                  }
             }
         }
     }
-})
 
-// Retire tous les produits
+    // Modifie le recap de la commande lorsqu'on enlève un ou tous les produits
+     let baliseRecap = document.querySelector('.recap');
+     if (tabID.length == 0) {
+        baliseRecap.innerHTML = 'Vous n\'avez aucun produit dans votre panier. Veuillez retourner à la page d\'acceuil pour faire votre choix.';
+        document.getElementById("formulaireCommande").innerHTML = "";
+        document.querySelector(".bloc-form").innerHTML = "";
+        document.getElementById("clear-cart").remove();
+     } else {
+         baliseRecap.innerHTML = `Votre commande contient ${tabID.length} produit(s) pour un montant total de ${montantTotal}.`;
+    }
+})
+}
+
+// Retire un produit
 function retirerPanier(id) {
 
-    // Retire visuellement
-    document.getElementById(id).remove();
+    let tabID = retournerTabID();
 
     // Retrouver l'index du produit concerné dans le tableau
     index = tabID.indexOf(id);
-
-    // Supprimer la ligne "récapitulatif de commande"
-    
 
     // Supprimer l'id du tableau
     tabID.splice(index,1);
 
     // Met à jour le storage avec le tableau à jour
-    localStorage.setItem("tabID", tabID);
+    localStorage.setItem("tabID", JSON.stringify(tabID));
+
+    rafraichirPage();
 }
 
-// Retirer un produit
+// Retirer tous les produits
  let btnToutRetirer = document.getElementById("clear-cart").addEventListener("click", () => {
 
      // Retirer du local Storage
     localStorage.removeItem('tabID');
 
-     // Retirer visuellement
-    document.querySelector('#articles').innerHTML = "";
-    document.getElementById("clear-cart").remove();
-  })
-
-
-
+    rafraichirPage();
+ })
 
 // Au clique du btn valider, envoie les informations du formulaire ainsi que les ID des produits sélectionnés
 let btnValider = document.getElementById("formulaireCommande");
-// btnValider.addEventListener("submit", envoyer);
-
-
