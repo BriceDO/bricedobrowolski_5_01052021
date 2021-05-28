@@ -72,17 +72,6 @@ function rafraichirAlertePanier() {
     }
 }
 
-// Determine s'il y a un produit dans le panier et retourne la longueur du tableau grâce à l'ID (soit le nombre de produit)
-//inutilisé
-function retournerNbProduitsPanier() {
-    let nbProduitPanier = 0;
-    if (localStorage.getItem('tabID') != null){
-        let tabID = localStorage.getItem('tabID').split(',');
-        nbProduitPanier = tabID.length;
-    }
-    return nbProduitPanier;
-}
-
 // Si le tabID est différent de null, alors on récupère un tableau d'ID.
 // Sinon, on récupère un tableau vide.
 
