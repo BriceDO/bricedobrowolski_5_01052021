@@ -3,7 +3,6 @@ const ENDPOINT = 'http://localhost:3000/api/teddies/';
 
 // Récupére l'ID de la commande
 const ORDERPOINT = 'http://localhost:3000/api/teddies/order';
-let nbProduitsPanier = 0;
 
 // Récupère l'API
 async function getData(url) {
@@ -15,49 +14,52 @@ async function getData(url) {
         console.error(error);
     }
 }
-    /*  Relié à la fonction displayArticleListe de index.html
-        Change l'innerText ainsi que la couleur du bouton et 
-        Incrémente ou décrémente lorsque "ajouter/retirer au panier" est cliqué */
-
-function ajouterPanier(element, recupererID) {
+    // Ajoute ou retire du panier en fonction de la condition
+function ajouterRetirerPanier(element, recupererID) {
 
     if (element.innerText == "Retirer du panier") {
-        element.innerText = "Ajouter au panier";
-        element.classList = 'btn btn btn-primary text-white';
-        nbProduitsPanier -= 1;
-
-        /* ------------- Enleve le produit du local storage --------- */
-
-        let tabID = JSON.parse(localStorage.getItem('tabID'));
-        
-        // Retrouver l'index du produit concerné dans le tableau
-        index = tabID.indexOf(recupererID);
-
-        // Supprimer l'id du tableau
-        tabID.splice(index, 1);
-
-        // Mettre à jour le storage avec un nouveau tableau
-        localStorage.setItem("tabID", JSON.stringify(tabID));
+        ajouterPanier(element, recupererID);
 
     } else {
-        element.innerText = "Retirer du panier";
-        element.classList = 'btn btn-success text-white';
-        nbProduitsPanier += 1;
-
-        /* ------------- Ajoute le produit au local storage --------- */
-
-        // Si tabID existe pas dans le local Storage, on initialise avec un tableau vide
-        // Si il existe, on récupère sa valeur
-        let tabID = retournerTabID();
-
-        // Ajoute l'id au tableau
-        tabID.push(recupererID);
-
-        // Mettre à jour le storage avec un nouveau tableau
-        localStorage.setItem('tabID', JSON.stringify(tabID));
+        retirerPanier(element, recupererID);
     }
 
     rafraichirAlertePanier();
+}
+
+    // Modifie le visuel du bouton et ajoute un ID au local storage
+function ajouterPanier(element, recupererID) {
+    element.innerText = "Ajouter au panier";
+    element.classList = 'btn btn btn-primary text-white';
+
+    /* ------------- Enleve le produit du local storage --------- */
+
+    let tabID = JSON.parse(localStorage.getItem('tabID'));
+    
+    // Retrouver l'index du produit concerné dans le tableau
+    index = tabID.indexOf(recupererID);
+
+    // Supprimer l'id du tableau
+    tabID.splice(index, 1);
+
+    // Mettre à jour le storage avec un nouveau tableau
+    localStorage.setItem("tabID", JSON.stringify(tabID));
+}
+
+    // Modifie le visuel du bouton et retire un ID au local storage
+function retirerPanier(element, recupererID) {
+    element.innerText = "Retirer du panier";
+    element.classList = 'btn btn-success text-white';
+
+    /* ------------- Ajoute le produit au local storage --------- */
+
+    let tabID = retournerTabID();
+
+    // Ajoute l'id au tableau
+    tabID.push(recupererID);
+
+    // Mettre à jour le storage avec un nouveau tableau
+    localStorage.setItem('tabID', JSON.stringify(tabID));
 }
 
 // Change l'alerte lorsque 1 produit ou + sont sélectionnés

@@ -33,7 +33,7 @@ function rafraichirPage() {
                  let btnRetirer = clone.querySelector('.retirer');
 
                  /* Au clique du bouton retirer, on execute la fonction retirerPanier 
-                    avec en paramètrel'ID du produit
+                    avec en paramètre l'ID du produit.
                     Le paramètre doit avoir baliseArticle.id pour fonctionner.  */
  
                  btnRetirer.addEventListener("click", () => {
@@ -43,7 +43,6 @@ function rafraichirPage() {
                 let articles = document.querySelector('#articles');
                 articles.appendChild(clone);
 
-                // -------- RECAP DE LA COMMANDE ----------- //
                  if (tabID.length > 0){
                     montantAjoute = produit.price;
                     montantTotal += montantAjoute; 
@@ -52,6 +51,7 @@ function rafraichirPage() {
         }
     }
 
+    // -------- RECAP DE LA COMMANDE ----------- //
     // Modifie le recap de la commande lorsqu'on enlève un ou tous les produits
      let baliseRecap = document.querySelector('.recap');
      if (tabID.length == 0) {
@@ -70,10 +70,10 @@ function retirerPanier(id) {
 
     let tabID = retournerTabID();
 
-    // Retrouver l'index du produit concerné dans le tableau
+    // Retrouve l'index du produit concerné dans le tableau
     index = tabID.indexOf(id);
 
-    // Supprimer l'id du tableau
+    // Supprime l'id du tableau
     tabID.splice(index,1);
 
     // Met à jour le storage avec le tableau à jour

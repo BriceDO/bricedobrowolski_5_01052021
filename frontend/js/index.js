@@ -34,8 +34,8 @@ function displayArticleListe(article) {
         btnAjouter.innerText = "Retirer du panier";
     }
 
-    // Au clique du bouton, lance une fonction qui va appeler la fonction ajouterPanier avec en paramètre le btn HTML concerné
-    btnAjouter.addEventListener('click', function() {ajouterPanier(btnAjouter, article._id)});
+    // Au clique du bouton, lance une fonction qui va appeler la fonction ajouterRetirerPanier avec en paramètre le btn HTML concerné
+    btnAjouter.addEventListener('click', function() {ajouterRetirerPanier(btnAjouter, article._id)});
 
     // Le bouton .details et le titre du produit redirigent vers la page produit
     let btnDetail = clone.querySelector('.details');

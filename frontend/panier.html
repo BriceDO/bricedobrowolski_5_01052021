@@ -92,12 +92,12 @@
                 <form class="row g-3" id="formulaireCommande" action="/frontend/confirmation.html"  >
                     <div class="col-md-6">
                         <label class="form-label mb-2 mt-2">Nom</label>
-                        <input class="form-control" type="text" name="nom" pattern="[a-zA-Z- ]{2,32}" title="Deux lettres minimum requises, pas de chiffre" id="lastName" placeholder="Ex : Dupont"
+                        <input class="form-control" type="text" name="nom" pattern="[a-zA-Z- ]{2,32}" title="Entre 2 et 32 caractères requis, pas de chiffre" id="lastName" placeholder="Ex : Dupont"
                             required>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label mb-2 mt-2">Prénom</label>
-                        <input class="form-control" type="text" pattern="[a-zA-Z- ]{2,32}" title="Deux lettres minimum requises, pas de chiffre" name="prenom" id="firstName" placeholder="Ex : Jean"
+                        <input class="form-control" type="text" pattern="[a-zA-Z- ]{2,32}" title="Entre 2 et 32 caractères requis, pas de chiffre" name="prenom" id="firstName" placeholder="Ex : Jean"
                             required>
                     </div>
                     <div class="col-12">
@@ -107,11 +107,11 @@
                     </div>
                     <div class="col-12">
                         <label for="adresse" class="form-label mb-2 mt-3">Adresse postale</label>
-                        <input type="text" class="form-control" name="adresse" id="adresse" placeholder="Ex : 10 rue Victor Hugo" required>
+                        <input type="text" class="form-control" name="adresse" id="adresse" pattern="([0-9]{1,})([a-zA-Z ]{2,32})" title="Indiquez d'abord le numéro de rue. Entre 2 et 32 caractères requis." placeholder="Ex : 10 rue Victor Hugo" required>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label mb-2 mt-3">Ville</label>
-                        <input class="form-control" type="text" pattern="[a-zA-Z- ]{2,32}" title="Deux lettres minimum requises, pas de chiffre" name="ville" id="city" placeholder="Ex : Paris"
+                        <input class="form-control" type="text" pattern="[a-zA-Z- ]{2,32}" title="Entre 2 et 32 caractères requis, pas de chiffre" name="ville" id="city" placeholder="Ex : Paris"
                             required>
                     </div>
                     <div class="col-md-6">

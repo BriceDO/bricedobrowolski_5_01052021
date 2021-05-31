@@ -1,6 +1,6 @@
-function displayArticleProduit(article) {
+// Cette fonction inclut les élèments de l'article dans les balises concernées dans produit.html 
 
-    // Cette fonction inclut les élèments de l'article dans les balises concernées dans produit.html 
+function displayArticleProduit(article) {
     
     // Image
     let baliseIMG = document.querySelector('.image');
@@ -23,7 +23,7 @@ function displayArticleProduit(article) {
 
     // Btn Ajouter
     let btnAjouter = document.querySelector('.panier');
-    btnAjouter.addEventListener('click', function() {ajouterPanier(btnAjouter, id)});
+    btnAjouter.addEventListener('click', function() {ajouterRetirerPanier(btnAjouter, id)});
 
     // Je boucle le tableau des couleurs
     for (const element of article.colors){
@@ -37,10 +37,10 @@ function displayArticleProduit(article) {
     }
 }
 
-function recupererIDUrl() {
+/* Cette fonction récupère l'ID de l'URL, en retourne sa valeur
+   pour pouvoir l'utiliser après et afficher les propriétés de l'article */
 
-    /* Cette fonction récupère l'ID de l'URL, en retourne sa valeur
-       pour pouvoir l'utiliser après et afficher les propriétés de l'article */
+function recupererIDUrl() {
 
     // Récupère la chaine des paramètres dans l'url
     const queryString = window.location.search;
@@ -53,6 +53,8 @@ function recupererIDUrl() {
 
     return id;
 }
+
+// Cette fonction créé l'URL composé de l'ID du produit et va se servir de displayArticleProduit pour afficher la fiche produit.
 
 function afficherLeProduit() {
     id = recupererIDUrl();
