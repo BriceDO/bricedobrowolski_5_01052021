@@ -4,7 +4,7 @@ const queryString = window.location.search;
 // Utilise la classe URLSearchParams pour parser (couper) les paramètres
 const urlParams = new URLSearchParams(queryString);
 
-// Récupère la valeur de la clé ID
+// Récupère la valeur de chaque champ
 nom = urlParams.get('nom');
 prenom = urlParams.get('prenom');
 email = urlParams.get('email');

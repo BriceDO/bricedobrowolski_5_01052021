@@ -74,7 +74,7 @@ function rafraichirAlertePanier() {
     }
 }
 
-// Si le tabID est différent de null, alors on récupère un tableau d'ID.
+// Si le tabID est différent de null (donc si il contient contient quelque chose), alors on récupère un tableau d'ID.
 // Sinon, on récupère un tableau vide.
 
 function retournerTabID() {
