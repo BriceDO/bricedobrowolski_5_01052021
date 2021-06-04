@@ -30,7 +30,7 @@ function ajouterRetirerPanier(element, recupererID) {
     // Modifie le visuel du bouton et ajoute un ID au local storage
 function ajouterPanier(element, recupererID) {
     element.innerText = "Ajouter au panier";
-    element.classList = 'btn btn btn-primary text-white';
+    element.classList = 'btn btn-primary text-white';
 
     /* ------------- Enleve le produit du local storage --------- */
 
