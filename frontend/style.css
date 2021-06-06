@@ -5,7 +5,3 @@
   input.form-control:invalid {
     border:1px solid grey;
 } 
-
-body {
-  font-size: 5px !important;
-}
