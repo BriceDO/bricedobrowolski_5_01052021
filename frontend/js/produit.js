@@ -1,7 +1,11 @@
+
+
 // Cette fonction inclut les élèments de l'article dans les balises concernées dans produit.html 
 
 function displayArticleProduit(article) {
-    
+
+    panierID = retournerTabID();
+
     // Image
     let baliseIMG = document.querySelector('.image');
     baliseIMG.src = article.imageUrl;
@@ -24,6 +28,13 @@ function displayArticleProduit(article) {
     // Btn Ajouter
     let btnAjouter = document.querySelector('.panier');
     btnAjouter.addEventListener('click', function() {ajouterRetirerPanier(btnAjouter, id)});
+
+    // Permet de savoir si l'ID est dans le storage / panier.
+    // Si oui, le bouton sera "retirer du panier", si non "ajouter au panier" (par défaut)
+    if (estDansLePanier(article._id, panierID)){
+        btnAjouter.classList = 'btn btn btn-success text-white';
+        btnAjouter.innerText = "Retirer du panier";
+    }
 
     // Je boucle le tableau des couleurs
     for (const element of article.colors){

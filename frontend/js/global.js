@@ -46,6 +46,11 @@ function ajouterPanier(element, recupererID) {
     localStorage.setItem("tabID", JSON.stringify(tabID));
 }
 
+    // Permet de savoir si l'article est dans le panier
+    function estDansLePanier(id, panier) {
+      return panier.indexOf (id) > -1;
+    }
+
     // Modifie le visuel du bouton et retire un ID au local storage
 function retirerPanier(element, recupererID) {
     element.innerText = "Retirer du panier";

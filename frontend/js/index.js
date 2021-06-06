@@ -29,7 +29,7 @@ function displayArticleListe(article) {
     // Savoir si l'ID du produit est dans le panier (tabID)
     tabID = retournerTabID();
 
-    if (tabID.indexOf (article._id) > -1){
+    if (estDansLePanier(article._id, tabID)){
         btnAjouter.classList = 'btn btn btn-success text-white';
         btnAjouter.innerText = "Retirer du panier";
     }
